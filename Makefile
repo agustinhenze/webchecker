@@ -5,6 +5,7 @@ up: ## Create kafka and postgres containers + webchecker container used for test
 	@docker-compose up --no-recreate -d
 	@# wait for kafka service to be ready
 	@docker-compose exec kafka-1 /home/appuser/webchecker/kafka_is_ready.sh
+	@docker-compose exec postgres bash -c "dropdb -U postgres --if-exists webchecker && createdb -U postgres webchecker"
 
 down: ## Delete all containers
 	@docker-compose down --remove-orphan
